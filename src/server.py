@@ -9,6 +9,7 @@ from typing import Any, Dict, List, Optional
 
 from mcp.server import Server
 from mcp.server.models import InitializationOptions
+from mcp.server import NotificationOptions
 from mcp.server.stdio import stdio_server
 from mcp.types import (
     Resource,
@@ -497,6 +498,9 @@ async def handle_call_tool(name: str, arguments: Dict[str, Any]) -> List[TextCon
         return [TextContent(type="text", text=f"Error: {str(e)}")]
 
 
+
+
+
 async def main():
     """Main function to run the server."""
     async with stdio_server() as (read_stream, write_stream):
@@ -507,11 +511,13 @@ async def main():
                 server_name="mexican-legal-mcp",
                 server_version="1.0.0",
                 capabilities=server.get_capabilities(
-                    notification_options=None,
+                    notification_options=NotificationOptions(),
                     experimental_capabilities=None,
                 )
             )
         )
+
+
 
 
 if __name__ == "__main__":
